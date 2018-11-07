@@ -1,0 +1,10 @@
+{
+    "extends": "standard",
+    "rules": {
+        "indent": ["error", 4],
+        "no-unused-vars": 1,
+        "no-multiple-empty-lines": 0,
+        "no-trailing-spaces": 0,
+        "space-before-function-paren": ["warn", "never"]
+    }
+}
