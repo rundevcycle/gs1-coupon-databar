@@ -1,10 +1,17 @@
 {
     "extends": "standard",
+    "env" : {
+        "es6": true,
+        "jquery": true
+    },
     "rules": {
-        "indent": ["error", 4],
+        "indent": ["error", 4, { "SwitchCase": 1 }],
         "no-unused-vars": 1,
         "no-multiple-empty-lines": 0,
         "no-trailing-spaces": 0,
-        "space-before-function-paren": ["warn", "never"]
+        "space-before-function-paren": ["warn", "never"],
+        "semi": 0,
+        "quotes": ["warn", "double", { "avoidEscape": true } ]
+        
     }
 }

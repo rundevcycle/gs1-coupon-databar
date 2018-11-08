@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 var GS1Coupon = function() {
     this.applicationIdentifer = undefined;
@@ -71,15 +71,11 @@ var GS1Transcoder = function() {
 
         var gs1Fields = new GS1Coupon();
 
-        var cumulVliOffset = 0;
-
         var i = 0;
-        gs1Fields.applicationIdentifer = gs1Databar.substring(i, i+4);
+        gs1Fields.applicationIdentifer = gs1Databar.substring(i, i + 4);
         i += 4;
 
-        gs1Fields.primaryCompanyPrefixVLI = gs1Databar.substring(i, i+1);
-        i += 1;
-
+        gs1Fields.primaryCompanyPrefixVLI = gs1Databar.substring(i, ++i);
         gs1Fields.primaryCompanyPrefix = gs1Databar.substring(i, 
             i + 6 + +gs1Fields.primaryCompanyPrefixVLI);
         i += 6 + +gs1Fields.primaryCompanyPrefixVLI;
@@ -87,27 +83,99 @@ var GS1Transcoder = function() {
         gs1Fields.offerCode = gs1Databar.substring(i, i + 6);
         i += 6;
 
-        gs1Fields.saveValueVLI = gs1Databar.substring(i, i + 1);
-        i += 1;
-
+        gs1Fields.saveValueVLI = gs1Databar.substring(i, ++i);
         gs1Fields.saveValue = gs1Databar.substring(i, 
             i + +gs1Fields.saveValueVLI);
         i += +gs1Fields.saveValueVLI;
 
-        gs1Fields.primaryPurchaseRequirementVLI = gs1Databar.substring(i,
-            i + 1);
-        i += 1;
-
+        gs1Fields.primaryPurchaseRequirementVLI = gs1Databar.substring(i, ++i);
         gs1Fields.primaryPurchaseRequirement = gs1Databar.substring(i, 
             i + +gs1Fields.primaryPurchaseRequirementVLI);
         i += +gs1Fields.primaryPurchaseRequirementVLI;
 
-        gs1Fields.primaryPurchaseRequirementCode = gs1Databar.substring(i,
-            i + 1);
-        i += 1;
+        gs1Fields.primaryPurchaseRequirementCode = gs1Databar.substring(i, ++i);
 
         gs1Fields.primaryPurchaseFamilyCode = gs1Databar.substring(i, i + 3);
         i += 3;
+
+        let optionalFieldIndctr = gs1Databar.substring(i, ++i);
+        
+        while (+optionalFieldIndctr) {
+            switch (+optionalFieldIndctr) {
+                case 1:
+                    // Second qualifying purchase
+                    gs1Fields.secondaryAdditionalPurchaseRulesCode = gs1Databar.substring(i, ++i);
+                    gs1Fields.secondaryPurchaseRequirementVLI = gs1Databar.substring(i, ++i);
+                    gs1Fields.secondaryPurchaseRequirement = gs1Databar.substring(i, 
+                        i + +gs1Fields.secondaryPurchaseRequirementVLI);
+                    i += +gs1Fields.secondaryPurchaseRequirementVLI;
+        
+                    gs1Fields.secondaryPurchaseRequirementCode = gs1Databar.substring(i, ++i);        
+                    gs1Fields.secondaryPurchaseFamilyCode = gs1Databar.substring(i, i + 3); 
+                    i += 3;
+        
+                    gs1Fields.secondaryPurchaseCompanyPrefixVLI = gs1Databar.substring(i, ++i);        
+                    gs1Fields.secondaryPurchaseCompanyPrefix = gs1Databar.substring(i,
+                        i + +gs1Fields.secondaryPurchaseCompanyPrefixVLI);
+                    i += +gs1Fields.secondaryPurchaseCompanyPrefixVLI;
+                    break;
+
+                case 2:
+                    // Third qualifying purchase
+                    gs1Fields.tertiaryPurchaseRequirementVLI = gs1Databar.substring(i, ++i);        
+                    gs1Fields.tertiaryPurchaseRequirement = gs1Databar.substring(i, 
+                        i + +gs1Fields.tertiaryPurchaseRequirementVLI);
+                    i += +gs1Fields.tertiaryPurchaseRequirementVLI;
+        
+                    gs1Fields.tertiaryPurchaseRequirementCode = gs1Databar.substring(i, ++i);        
+                    gs1Fields.tertiaryPurchaseFamilyCode = gs1Databar.substring(i, i + 3); 
+                    i += 3;
+        
+                    gs1Fields.tertiaryPurchaseCompanyPrefixVLI = gs1Databar.substring(i, ++i);        
+                    gs1Fields.tertiaryPurchaseCompanyPrefix = gs1Databar.substring(i,
+                        i + +gs1Fields.tertiaryPurchaseCompanyPrefixVLI);
+                    i += +gs1Fields.tertiaryPurchaseCompanyPrefixVLI;
+                    break;
+
+                case 3:
+                    // Expiry date
+                    gs1Fields.expirationDate = gs1Databar.substring(i, i + 6);
+                    i += 6;
+                    break;
+
+                case 4:
+                    // Start date
+                    gs1Fields.startDate = gs1Databar.substring(i, i + 6);
+                    i += 6;
+                    break;
+
+                case 5:
+                    // Serial number
+                    gs1Fields.serialNumberVLI = gs1Databar.substring(i, ++i);
+                    gs1Fields.serialNumber = gs1Databar.substring(i, 
+                        i + 6 + +gs1Fields.serialNumberVLI);
+                    i +=  6 + +gs1Fields.serialNumberVLI;
+                    break;
+
+                case 6:
+                    // Retailer identification
+                    gs1Fields.retailerCompanyPrefixVLI = gs1Databar.substring(i, ++i);
+                    gs1Fields.retailerCompanyPrefixOrGLN = gs1Databar.substring(i,
+                        i + 7 + +gs1Fields.retailerCompanyPrefixVLI);
+                    i += 7 + +gs1Fields.retailerCompanyPrefixVLI;
+                    break;
+
+                case 9:
+                    // Miscellaneous
+                    gs1Fields.saveValueCode = gs1Databar.substring(i, ++i);
+                    gs1Fields.saveValueAppliesToWhichItem = gs1Databar.substring(i, ++i);
+                    gs1Fields.storeCouponFlag = gs1Databar.substring(i, ++i);
+                    gs1Fields.doNotMultiplyFlag = gs1Databar.substring(i, ++i);
+                    break;
+            }
+
+            optionalFieldIndctr = gs1Databar.substring(i, ++i);
+        }
 
         console.log(gs1Fields);
     }
@@ -118,13 +186,12 @@ var GS1Transcoder = function() {
 
 $(document).ready(() => {
     var transcoder = new GS1Transcoder();
-
-    const barcode = "8110012345698765432505223344666";
+    //                                              .
+    const barcode = "8110012345698765432505223344666320013141811015312345678966998877665544390001";
 
     $("#databar").text(barcode);
 
     transcoder.decode(barcode);
-
 });
 
 
