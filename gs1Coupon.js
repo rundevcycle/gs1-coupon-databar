@@ -14,7 +14,6 @@ var GS1Coupon = function() {
     this.primaryPurchaseFamilyCode = undefined;
 
     // Optional data field 1: second qualifying purchase
-    this.dataField1SecondaryPurchaseIndicator = undefined;
     this.secondaryAdditionalPurchaseRulesCode = undefined;
     this.secondaryPurchaseRequirementVLI = undefined;
     this.secondaryPurchaseRequirement = undefined;
@@ -24,7 +23,6 @@ var GS1Coupon = function() {
     this.secondaryPurchaseCompanyPrefix = undefined;
 
     // Optional data field 2: third qualifying purchase
-    this.dataField2TertiaryPurchaseIndicator = undefined;
     this.tertiaryPurchaseRequirementVLI = undefined;
     this.tertiaryPurchaseRequirement = undefined;
     this.tertiaryPurchaseRequirementCode = undefined;
@@ -33,25 +31,20 @@ var GS1Coupon = function() {
     this.tertiaryPurchaseCompanyPrefix = undefined;
 
     // Optional data field 3: expiry date
-    this.dataField3ExpirationDateIndicator = undefined;
     this.expirationDate = undefined;
 
     // Optional data field 4: start date
-    this.dataField4StartDateIndicator = undefined;
     this.startDate = undefined;
 
     // Optional data field 5: serial number
-    this.dataField5SerialNumberIndicator = undefined;
     this.serialNumberVLI = undefined;
     this.serialNumber = undefined;
 
     // Optional data field 6: retailer ID
-    this.dataField6RetailerIdentificationIndicator = undefined;
     this.retailerCompanyPrefixVLI = undefined;
     this.retailerCompanyPrefixOrGLN = undefined;
 
     // Optional data field 9: miscellaneous
-    this.dataField9MiscellaneousIndicator = undefined;
     this.saveValueCode = undefined;
     this.saveValueAppliesToWhichItem = undefined;
     this.storeCouponFlag = undefined;
@@ -104,6 +97,7 @@ var GS1Transcoder = function() {
             switch (+optionalFieldIndctr) {
                 case 1:
                     // Second qualifying purchase
+                    console.log("Second qualifying item");
                     gs1Fields.secondaryAdditionalPurchaseRulesCode = gs1Databar.substring(i, ++i);
                     gs1Fields.secondaryPurchaseRequirementVLI = gs1Databar.substring(i, ++i);
                     gs1Fields.secondaryPurchaseRequirement = gs1Databar.substring(i, 
@@ -116,12 +110,13 @@ var GS1Transcoder = function() {
         
                     gs1Fields.secondaryPurchaseCompanyPrefixVLI = gs1Databar.substring(i, ++i);        
                     gs1Fields.secondaryPurchaseCompanyPrefix = gs1Databar.substring(i,
-                        i + +gs1Fields.secondaryPurchaseCompanyPrefixVLI);
-                    i += +gs1Fields.secondaryPurchaseCompanyPrefixVLI;
+                        i + 6 + +gs1Fields.secondaryPurchaseCompanyPrefixVLI);
+                    i += 6 + +gs1Fields.secondaryPurchaseCompanyPrefixVLI;
                     break;
 
                 case 2:
                     // Third qualifying purchase
+                    console.log("Third qualifying item");
                     gs1Fields.tertiaryPurchaseRequirementVLI = gs1Databar.substring(i, ++i);        
                     gs1Fields.tertiaryPurchaseRequirement = gs1Databar.substring(i, 
                         i + +gs1Fields.tertiaryPurchaseRequirementVLI);
@@ -133,32 +128,36 @@ var GS1Transcoder = function() {
         
                     gs1Fields.tertiaryPurchaseCompanyPrefixVLI = gs1Databar.substring(i, ++i);        
                     gs1Fields.tertiaryPurchaseCompanyPrefix = gs1Databar.substring(i,
-                        i + +gs1Fields.tertiaryPurchaseCompanyPrefixVLI);
-                    i += +gs1Fields.tertiaryPurchaseCompanyPrefixVLI;
+                        i + 6 + +gs1Fields.tertiaryPurchaseCompanyPrefixVLI);
+                    i += 6 + +gs1Fields.tertiaryPurchaseCompanyPrefixVLI;
                     break;
 
                 case 3:
                     // Expiry date
+                    console.log("Expiration date");
                     gs1Fields.expirationDate = gs1Databar.substring(i, i + 6);
                     i += 6;
                     break;
 
                 case 4:
                     // Start date
+                    console.log("Start date");
                     gs1Fields.startDate = gs1Databar.substring(i, i + 6);
                     i += 6;
                     break;
 
                 case 5:
                     // Serial number
+                    console.log("Serial number");
                     gs1Fields.serialNumberVLI = gs1Databar.substring(i, ++i);
                     gs1Fields.serialNumber = gs1Databar.substring(i, 
                         i + 6 + +gs1Fields.serialNumberVLI);
-                    i +=  6 + +gs1Fields.serialNumberVLI;
+                    i += 6 + +gs1Fields.serialNumberVLI;
                     break;
 
                 case 6:
                     // Retailer identification
+                    console.log("Retailer identification");
                     gs1Fields.retailerCompanyPrefixVLI = gs1Databar.substring(i, ++i);
                     gs1Fields.retailerCompanyPrefixOrGLN = gs1Databar.substring(i,
                         i + 7 + +gs1Fields.retailerCompanyPrefixVLI);
@@ -167,6 +166,7 @@ var GS1Transcoder = function() {
 
                 case 9:
                     // Miscellaneous
+                    console.log("Miscellaneous");
                     gs1Fields.saveValueCode = gs1Databar.substring(i, ++i);
                     gs1Fields.saveValueAppliesToWhichItem = gs1Databar.substring(i, ++i);
                     gs1Fields.storeCouponFlag = gs1Databar.substring(i, ++i);
@@ -187,7 +187,10 @@ var GS1Transcoder = function() {
 $(document).ready(() => {
     var transcoder = new GS1Transcoder();
     //                                              .
-    const barcode = "8110012345698765432505223344666320013141811015312345678966998877665544390001";
+    //    const barcode = "8110012345698765432505223344666320013141811015312345678966998877665544390001";
+    //    const barcode = "81100123456987654325052233446661021107770123456320013141811015312345678966998877665544390001";
+    const barcode = "81100123456987654325052233446661021107770123456211088811234567320013141811015312345678966998877665544390001";
+    //    const barcode = "81100123456987654325052233446661021107770123456";
 
     $("#databar").text(barcode);
 
