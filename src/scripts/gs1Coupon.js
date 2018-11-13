@@ -52,6 +52,7 @@ var GS1Coupon = function() {
 };
 
 
+// TODO Make this a proper module.
 var GS1Transcoder = function() {
     this.decode = function(gs1Databar) {
         console.log("decoder running");
@@ -178,9 +179,9 @@ var GS1Transcoder = function() {
         }
 
         console.log(gs1Fields);
+        return gs1Fields;
     }
 };
-
 
 
 
