@@ -11,5 +11,22 @@
         <div id="fields"></div>
 
         <script type="text/javascript" src="assets/scripts/main.min.js"></script>
+
+        <script type="text/javascript">
+
+
+$(document).ready(() => {
+    var transcoder = new GS1Transcoder();
+    //                                              .
+    //    const barcode = "8110012345698765432505223344666320013141811015312345678966998877665544390001";
+    //    const barcode = "81100123456987654325052233446661021107770123456320013141811015312345678966998877665544390001";
+    const barcode = "81100123456987654325052233446661021107770123456211088811234567320013141811015312345678966998877665544390001";
+    //    const barcode = "81100123456987654325052233446661021107770123456";
+
+    $("#databar").text(barcode);
+
+    transcoder.decode(barcode);
+});
+        </script>
     </body>
 </html>
