@@ -50,5 +50,3 @@ var GS1Coupon = function() {
     this.storeCouponFlag = undefined;
     this.doNotMultiplyFlag = undefined;
 };
-
-module.exports = GS1Coupon;

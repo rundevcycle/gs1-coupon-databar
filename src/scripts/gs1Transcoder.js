@@ -1,5 +1,4 @@
 "use strict";
-var GS1Coupon = require('./gs1Coupon');
 
 var GS1Transcoder = function() {
     this.decode = function(gs1Databar) {
@@ -130,5 +129,3 @@ var GS1Transcoder = function() {
         return gs1Fields;
     }
 };
-
-module.exports = GS1Transcoder;
