@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>GS1 Decoder</title>
+        <script src="node_modules/jquery/dist/jquery.js"></script>
+        <link rel="stylesheet" type="text/css" href="assets/styles/main.min.css" >
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    </head>
+
+    <body>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-2"><span class="label">GS1 Databar</span></div>
+                <div class="col-9"><input id="gs1Databar" type="text"></div>
+                <div class="col-1"><input id="btnDecode" type="button" value="Decode"></div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-2">Company Prefix</div>
+                <div class="col-10"><span id="primaryCompanyPrefix"></span></div>
+            </div>
+            <div class="row">
+                    <div class="col-2">Offer Code</div>
+                    <div class="col-10"><span id="offerCode"></span></div>
+                </div>
+            </div>
+
+        <div>
+            <pre>
+                <div id="fields"></div>
+
+            </pre>
+
+        </div>
+
+
+
+        <script type="text/javascript" src="assets/scripts/main.min.js"></script>
+
+        <script type="text/javascript">
+
+
+$(document).ready(() => {
+    $("#btnDecode").click(decode);
+});
+
+
+function decode() {
+    var transcoder = new GS1Transcoder();
+
+    var gs1Databar = $("#gs1Databar").val();
+
+    const barcode = "81100123456987654325052233446661021107770123456211088811234567320013141811015312345678966998877665544390001";
+
+    var fields = transcoder.decode(gs1Databar);
+
+    $("#fields").text(JSON.stringify(fields, null, 2));
+
+    $("#primaryCompanyPrefix").text(fields.primaryCompanyPrefix);
+    $("#offerCode").text(fields.offerCode);
+
+}
+        </script>
+
+    </body>
+</html>
