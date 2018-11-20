@@ -23,10 +23,24 @@
                 <div class="col-10"><span id="primaryCompanyPrefix"></span></div>
             </div>
             <div class="row">
-                    <div class="col-2">Offer Code</div>
-                    <div class="col-10"><span id="offerCode"></span></div>
-                </div>
+                <div class="col-2">Offer Code</div>
+                <div class="col-10"><span id="offerCode"></span></div>
             </div>
+            <div class="row">
+                <div class="col-2">Save Value</div>
+                <div class="col-10"><span id="saveValue"></span></div>
+            </div>
+            <div class="row">
+                <div class="col-2">Primary Purchase Requirement</div>
+                <div class="col-10"><span id="primaryPurchaseRequirement"></span></div>
+            </div>
+            <div class="row">
+                <div class="col-2">Primary Purchase Family Code</div>
+                <div class="col-10"><span id="primaryPurchaseFamilyCode"></span></div>
+            </div>
+
+
+        </div>
 
         <div>
             <pre>
@@ -61,8 +75,15 @@ function decode() {
 
     $("#primaryCompanyPrefix").text(fields.primaryCompanyPrefix);
     $("#offerCode").text(fields.offerCode);
-
+    $("#saveValue").text(fields.saveValue);
+    $("#primaryPurchaseRequirement").text(fields.primaryPurchaseRequirement);
+    $("#primaryPurchaseFamilyCode").text(fields.primaryPurchaseFamilyCode);
+    
 }
+
+
+
+
         </script>
 
     </body>
