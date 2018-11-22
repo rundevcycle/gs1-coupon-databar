@@ -18,53 +18,113 @@
         </div>
 
         <div class="container">
+            <div class="row section-title">
+                <div class="col-12">Primary Qualifying Purchase</div>
+            </div>
             <div class="row">
-                <div class="col-4">Company Prefix</div>
+                <div class="col-4 label">Company Prefix</div>
                 <div class="col-8"><span id="primaryCompanyPrefix"></span></div>
             </div>
             <div class="row">
-                <div class="col-4">Offer Code</div>
+                <div class="col-4 label">Offer Code</div>
                 <div class="col-8"><span id="offerCode"></span></div>
             </div>
             <div class="row">
-                <div class="col-4">Save Value</div>
+                <div class="col-4 label">Save Value</div>
                 <div class="col-8"><span id="saveValue"></span></div>
             </div>
             <div class="row">
-                <div class="col-4">Primary Purchase Requirement</div>
+                <div class="col-4 label">Purchase Requirement</div>
                 <div class="col-8"><span id="primaryPurchaseRequirement"></span></div>
             </div>
             <div class="row">
-                <div class="col-4">Primary Purchase Requirement Code</div>
+                <div class="col-4 label">Purchase Requirement Code</div>
                 <div class="col-8"><span id="primaryPurchaseRequirementCode"></span></div>
             </div>
             <div class="row">
-                <div class="col-4">Primary Purchase Family Code</div>
+                <div class="col-4 label">Purchase Family Code</div>
                 <div class="col-8"><span id="primaryPurchaseFamilyCode"></span></div>
             </div>
 
-            <div class="row">
+            <div class="row section-title">
                 <div class="col-12">Second Qualifying Purchase</div>
             </div>
             <div class="row">
-                <div class="col-4">Additional Purchase Rules Code</div>
+                <div class="col-4 label">Additional Purchase Rules Code</div>
                 <div class="col-8"><span id="secondaryAdditionalPurchaseRulesCode"></span></div>
             </div>
             <div class="row">
-                <div class="col-4">Purchase Requirement</div>
+                <div class="col-4 label">Purchase Requirement</div>
                 <div class="col-8"><span id="secondaryPurchaseRequirement"></span></div>
             </div>
             <div class="row">
-                <div class="col-4">Purchase Requirement Code</div>
+                <div class="col-4 label">Purchase Requirement Code</div>
                 <div class="col-8"><span id="secondaryPurchaseRequirementCode"></span></div>
             </div>
             <div class="row">
-                <div class="col-4">Purchase Family Code</div>
+                <div class="col-4 label">Purchase Family Code</div>
                 <div class="col-8"><span id="secondaryPurchaseFamilyCode"></span></div>
             </div>
             <div class="row">
-                <div class="col-4">GS1 Company Prefix</div>
+                <div class="col-4 label">GS1 Company Prefix</div>
                 <div class="col-8"><span id="secondaryCompanyPrefix"></span></div>
+            </div>
+
+
+            <div class="row section-title">
+                <div class="col-12">Third Qualifying Purchase</div>
+            </div>
+            <div class="row">
+                <div class="col-4 label">Purchase Requirement</div>
+                <div class="col-8"><span id="tertiaryPurchaseRequirement"></span></div>
+            </div>
+            <div class="row">
+                <div class="col-4 label">Purchase Requirement Code</div>
+                <div class="col-8"><span id="tertiaryPurchaseRequirementCode"></span></div>
+            </div>
+            <div class="row">
+                <div class="col-4 label">Purchase Family Code</div>
+                <div class="col-8"><span id="tertiaryPurchaseFamilyCode"></span></div>
+            </div>
+            <div class="row">
+                <div class="col-4 label">GS1 Company Prefix</div>
+                <div class="col-8"><span id="tertiaryCompanyPrefix"></span></div>
+            </div>
+
+            <div class="row section-title">
+                <div class="col-12">Other Information</div>
+            </div>
+            <div class="row">
+                <div class="col-4 label">Start Date</div>
+                <div class="col-8"><span id="startDate"></span></div>
+            </div>
+            <div class="row">
+                <div class="col-4 label">Expiration Date</div>
+                <div class="col-8"><span id="expirationDate"></span></div>
+            </div>
+            <div class="row">
+                <div class="col-4 label">Serial Number</div>
+                <div class="col-8"><span id="serialNumber"></span></div>
+            </div>
+            <div class="row">
+                <div class="col-4 label">Retailer Company Prefix/GLN</div>
+                <div class="col-8"><span id="retailerCompanyPrefixOrGLN"></span></div>
+            </div>
+            <div class="row">
+                <div class="col-4 label">Save Value Code</div>
+                <div class="col-8"><span id="saveValueCode"></span></div>
+            </div>
+            <div class="row">
+                <div class="col-4 label">Save Value Applies to Which Item</div>
+                <div class="col-8"><span id="saveValueAppliesToWhichItem"></span></div>
+            </div>
+            <div class="row">
+                <div class="col-4 label">Store Coupon Flag</div>
+                <div class="col-8"><span id="storeCouponFlag"></span></div>
+            </div>
+            <div class="row">
+                <div class="col-4 label">Do Not Multiply Flag</div>
+                <div class="col-8"><span id="doNotMultiplyFlag"></span></div>
             </div>
 
         </div>
@@ -102,7 +162,8 @@ function decode() {
 
     $("#primaryCompanyPrefix").text(fields.primaryCompanyPrefix);
     $("#offerCode").text(fields.offerCode);
-    $("#saveValue").text(fields.saveValue);
+//    $("#saveValue").text(fields.saveValue);
+    $("#saveValue").text(fields.FormatSaveValue());
     $("#primaryPurchaseRequirement").text(fields.primaryPurchaseRequirement);
     $("#primaryPurchaseRequirementCode").text(fields.primaryPurchaseRequirementCode);
     $("#primaryPurchaseFamilyCode").text(fields.primaryPurchaseFamilyCode);
@@ -112,10 +173,21 @@ function decode() {
     $("#secondaryPurchaseRequirementCode").text(fields.secondaryPurchaseRequirementCode);
     $("#secondaryPurchaseFamilyCode").text(fields.secondaryPurchaseFamilyCode);
     $("#secondaryCompanyPrefix").text(fields.secondaryPurchaseCompanyPrefix);
-    
+
+    $("#tertiaryPurchaseRequirement").text(fields.tertiaryPurchaseRequirement);
+    $("#tertiaryPurchaseRequirementCode").text(fields.tertiaryPurchaseRequirementCode);
+    $("#tertiaryPurchaseFamilyCode").text(fields.tertiaryPurchaseFamilyCode);
+    $("#tertiaryCompanyPrefix").text(fields.tertiaryPurchaseCompanyPrefix);
+
+    $("#startDate").text(fields.startDate);
+    $("#expirationDate").text(fields.expirationDate);
+    $("#serialNumber").text(fields.serialNumber);
+    $("#retailerCompanyPrefixOrGLN").text(fields.retailerCompanyPrefixOrGLN);
+    $("#saveValueCode").text(fields.saveValueCode);
+    $("#saveValueAppliesToWhichItem").text(fields.saveValueAppliesToWhichItem);
+    $("#storeCouponFlag").text(fields.storeCouponFlag);
+    $("#doNotMultiplyFlag").text(fields.doNotMultiplyFlag);
 }
-
-
 
 
         </script>
