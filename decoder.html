@@ -162,8 +162,7 @@ function decode() {
 
     $("#primaryCompanyPrefix").text(fields.primaryCompanyPrefix);
     $("#offerCode").text(fields.offerCode);
-//    $("#saveValue").text(fields.saveValue);
-    $("#saveValue").text(fields.FormatSaveValue());
+    $("#saveValue").text(gs1Formatter.formatSaveValue(fields));
     $("#primaryPurchaseRequirement").text(fields.primaryPurchaseRequirement);
     $("#primaryPurchaseRequirementCode").text(fields.primaryPurchaseRequirementCode);
     $("#primaryPurchaseFamilyCode").text(fields.primaryPurchaseFamilyCode);
@@ -179,8 +178,8 @@ function decode() {
     $("#tertiaryPurchaseFamilyCode").text(fields.tertiaryPurchaseFamilyCode);
     $("#tertiaryCompanyPrefix").text(fields.tertiaryPurchaseCompanyPrefix);
 
-    $("#startDate").text(fields.startDate);
-    $("#expirationDate").text(fields.expirationDate);
+    $("#startDate").text(gs1Formatter.formatDate(fields.startDate));
+    $("#expirationDate").text(gs1Formatter.formatDate(fields.expirationDate));
     $("#serialNumber").text(fields.serialNumber);
     $("#retailerCompanyPrefixOrGLN").text(fields.retailerCompanyPrefixOrGLN);
     $("#saveValueCode").text(fields.saveValueCode);
