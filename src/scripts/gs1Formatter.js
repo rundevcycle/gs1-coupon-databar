@@ -2,6 +2,7 @@
 
 var gs1Formatter = function() {
 
+
     function formatDate(gs1Date) {
         if (gs1Date === undefined) {
             return "";
@@ -12,48 +13,95 @@ var gs1Formatter = function() {
         }
     }
 
+
+    function saveValueUnits(gs1Fields) {
+
+    }
+
+
     function formatSaveValue(gs1Fields) {
         console.log("Save value code is " + gs1Fields.saveValueCode);
+        let fmtText = "";
 
-        var unitType = "";
-        var unitDecimals = 0;
+        let purchaseReqCode = gs1Fields.primaryPurchaseRequirementCode;
+        if (gs1Fields.secondaryAdditionalPurchaseRulesCode) {
+            switch (gs1Fields.saveValueAppliesToWhichItem) {
+                case "1":
+                    // 2nd qualifying item
+                    purchaseReqCode = gs1Fields.secondaryPurchaseRequirementCode;
+                    break;
 
-        switch (gs1Fields.saveValueAppliesToWhichItem) {
-            case "1":
-                // 2nd qualifying item
-                break;
+                case 2:
+                    // 3rd qualifying item
+                    purchaseReqCode = gs1Fields.tertiaryPurchaseRequirementCode;
+                    break;
 
-            case 2:
-                // 3rd qualifying item
-                break;
-
-            default:
-                // 1st qualifying item
-                
+                default:
+                    // 1st qualifying item
+                    purchaseReqCode = gs1Fields.primaryPurchaseRequirementCode;
+                    break;
+            }
         }
 
 
         switch (gs1Fields.saveValueCode) {
-            case undefined:
-            case "0":
-                return "--* Save $" + (gs1Fields.saveValue / 100.0).toFixed(2);
             case "1":
-                // TODO unit is driven from the Purchase Requirement Code of the Save Value Applies To Which Item.
-                if (gs1Fields.saveValue == 0) {
-                    return "Get 1 free";
-                } else {
-                    return "Get 1 free up to $" + (gs1Fields.saveValue / 100.0).toFixed(2);
+                switch (purchaseReqCode) {
+                    case 1:
+                    case 2:
+                        fmtText = "Get 1 free up to $" + (gs1Fields.saveValue / 100.0).toFixed(2) + " free";
+                        break;
+                    case 3:
+                        fmtText = "Get 1 free up to " + (gs1Fields.saveValue / 100.0).toFixed(2) + " lb free";
+                        break;
+                    case 4:
+                        fmtText = "Get 1 free up to " + (gs1Fields.saveValue / 1000.0).toFixed(3) + " kg free";
+                        break;
+                    case 9:
+                        fmtText = "Cashier intervention required";
+                        break;
+                    default:
+                        if (gs1Fields.saveValue == 0) {
+                            fmtText = "Get 1 free";
+                        } else {
+                            fmtText = "Get up to " + gs1Fields.saveValue + " free";
+                        }
+                        break;
                 }
+                break;
+
             case "2":
-                return "Get " + gs1Fields.saveValue + " free";
+                switch (purchaseReqCode) {
+                    case 1:
+                    case 2:
+                        fmtText = "Get $" + (gs1Fields.saveValue / 100.0).toFixed(2) + " free";
+                        break;
+                    case 3:
+                        fmtText = "Get " + (gs1Fields.saveValue / 100.0).toFixed(2) + " lb free";
+                        break;
+                    case 4:
+                        fmtText = "Get " + (gs1Fields.saveValue / 1000.0).toFixed(3) + " kg free";
+                        break;
+                    case 9:
+                        fmtText = "Cashier intervention required";
+                        break;
+                    default:
+                        fmtText = "Get " + gs1Fields.saveValue + " free";
+                        break;
+                }
+                break;
             case "5":
-                return "Save " + gs1Fields.saveValue + "%";
+                fmtText = "Save " + gs1Fields.saveValue + "%";
+                break;
             case "6":
-                return "Save " + (gs1Fields.saveValue / 100.0).toFixed(2) + " on final transaction amount";
+                fmtText = "Save $" + (gs1Fields.saveValue / 100.0).toFixed(2) + " on final amount";
+                break;
             default:
-                return gs1Fields.saveValue;
+                fmtText = "Save $" + (gs1Fields.saveValue / 100.0).toFixed(2);
+                break;
         }
 
+        return fmtText;
     }
 
 
